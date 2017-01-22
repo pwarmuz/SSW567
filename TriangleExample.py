@@ -9,8 +9,8 @@ def classifyTriangle(a,b,c):
     radianA = math.acos(cosA)
     cosB = ( math.pow(c, 2) + math.pow(a, 2) - math.pow(b, 2)) / (2*b*a)
     radianB = math.acos(cosB)
-    degreeA = math.degrees(radianA)
-    degreeB = math.degrees(radianB)
+    degreeA = round(math.degrees(radianA), 1)
+    degreeB = round(math.degrees(radianB), 1)
     degreeC = 180 - (degreeA + degreeB)
     if degreeA == degreeB == degreeC:
         typeTriangle = "Equilateral Triangle"
