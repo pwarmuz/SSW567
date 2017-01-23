@@ -16,18 +16,18 @@ def classifyTriangle(a, b, c):
         - No equal sides
         - No equal angles
 
-    :param a:
-    :param b:
-    :param c:
+    :param a: Length of side a
+    :param b: Length of side b
+    :param c: Length of side c
 
     :return:
     """
     a, b, c, = float(a), float(b), float(c)
-    degree_a = round(degrees(acos((b*b + c*c - a*a) / (2*b*c))), 4)
-    degree_b = round(degrees(acos((c*c + a*a - b*b) / (2*b*a))), 4)
+    degree_a = round(degrees(acos((b*b + c*c - a*a) / (2*b*c))), 3)
+    degree_b = round(degrees(acos((c*c + a*a - b*b) / (2*a*c))), 3)
     degree_c = 180 - degree_a - degree_b
 
-    # print degree_a, degree_b, degree_c
+    print degree_a, degree_b, degree_c
 
     if degree_a == degree_b == degree_c:
         return "Equilateral Triangle"
