@@ -1,3 +1,4 @@
+import unittest
 from math import acos, degrees
 
 
@@ -36,25 +37,50 @@ def classifyTriangle(a, b, c):
     # print angles
 
     if a == b == c:
-        return "Equilateral Triangle"
+        return "Equilateral"
 
     if a == b or b == c or a == c:
         if 90.0 in angles:
-            return "Isosceles Right Triangle"
-        return "Isosceles Triangle"
+            return "Isosceles Right"
+        return "Isosceles"
 
     if 90.0 in angles:
-        return "Scalene Right Triangle"
-    return "Scalene Triangle"
+        return "Scalene Right"
+    return "Scalene"
 
 
-RESPONSE_MESSAGE = "Line A: {0[0]}, Line B: {0[1]}, Line C: {0[2]} make a {1}"
+class ClassifyTriangleMethods(unittest.TestCase):
 
-triangle_parameters = [(8, 6, 7),
-                       (3, 3, 3),
-                       (7, 8, 7),
-                       (3, 4, 5),
-                       (6, 8, 10)]
+    def test_equilateral(self):
+        for i in range(1, 1000, 1):
+            self.assertEquals(classifyTriangle(i, i, i), "Equilateral")
 
-for triangle_parameter in triangle_parameters:
-    print RESPONSE_MESSAGE.format(triangle_parameter, classifyTriangle(*triangle_parameter))
+    #def test_isosceles(self):
+    #    self.assertEquals(classifyTriangle(7, 8, 4), "Isosceles")
+
+    #def test_isosceles_right(self):
+    #    pass
+
+    #def test_scalene(self):
+    #    self.assertEquals(classifyTriangle(8, 6, 7), "Scalene")
+
+    def test_scalene_right(self):
+        # Test Pythagorean Triples
+        
+        a, b, c = 3, 4, 5
+        for i in range(1, 1000, 1):
+            self.assertEquals(classifyTriangle(a*i, b*i, c*i), "Scalene Right")
+
+        a, b, c = 5, 12, 13
+        for i in range(1, 1000, 1):
+            self.assertEquals(classifyTriangle(a * i, b * i, c * i), "Scalene Right")
+
+        a, b, c = 8, 15, 17
+        for i in range(1, 1000, 1):
+            self.assertEquals(classifyTriangle(a * i, b * i, c * i), "Scalene Right")
+
+
+if __name__ == "__main__":
+    suite = unittest.TestLoader().loadTestsFromTestCase(ClassifyTriangleMethods)
+    unittest.TextTestRunner(verbosity=2).run(suite)
+
