@@ -1,31 +1,44 @@
-import math
+from math import acos, degrees
 
 valuesA = [8, 3, 7, 3, 6]
 valuesB = [6, 3, 8, 4, 8]
 valuesC = [7, 3, 7, 5, 10]
 
+def classifyTriangle(a, b, c):
+    """
 
-def classifyTriangle(a,b,c):
-    cos_a = (math.pow(b, 2) + math.pow(c, 2) - math.pow(a, 2)) / (2*b*c)
-    radian_a = math.acos(cos_a)
-    cos_b = (math.pow(c, 2) + math.pow(a, 2) - math.pow(b, 2)) / (2*b*a)
-    radian_b = math.acos(cos_b)
+    Equilateral Triangle:
+        - Three equal sides
+        - Three equal angles *always 60 degrees
 
-    degree_a = round(math.degrees(radian_a), 1)
-    degree_b = round(math.degrees(radian_b), 1)
-    degree_c = 180 - (degree_a + degree_b)
+    Isosceles Triangle:
+        - Two equal sides
+        - Two equal angles
 
-    print degree_a, degree_b, degree_c
+    Scalene Triangle:
+        - No equal sides
+        - No equal angles
+
+    :param a:
+    :param b:
+    :param c:
+
+    :return:
+    """
+    a, b, c, = float(a), float(b), float(c)
+    degree_a = round(degrees(acos((b*b + c*c - a*a) / (2*b*c))), 4)
+    degree_b = round(degrees(acos((c*c + a*a - b*b) / (2*b*a))), 4)
+    degree_c = 180 - degree_a - degree_b
+
+    # print degree_a, degree_b, degree_c
+
     if degree_a == degree_b == degree_c:
-        triangle_type = "Equilateral Triangle"
-    elif degree_a == 90.0 or degree_b == 90.0 or degree_c == 90.0:
-        triangle_type = "Right Triangle"
-    elif degree_a == degree_b or degree_a == degree_c:
-        triangle_type = "Isosceles Triangle"
-    else:
-        triangle_type = "Scalene Triangle"
-
-    return triangle_type
+        return "Equilateral Triangle"
+    if degree_a == 90.0 or degree_b == 90.0 or degree_c == 90.0:
+        return "Right Triangle"
+    if degree_a == degree_b or degree_a == degree_c:
+        return "Isosceles Triangle"
+    return "Scalene Triangle"
 
 
 for i in range(0, len(valuesA)):
