@@ -2,39 +2,49 @@ from math import acos, degrees
 
 
 def classifyTriangle(a, b, c):
-    """
+    """ Classify a triangle given the length of its 3 sides
 
-    Equilateral Triangle:
-        - Three equal sides
-        - Three equal angles *always 60 degrees
+        Equilateral Triangle:
+            - Three equal sides
 
-    Isosceles Triangle:
-        - Two equal sides
-        - Two equal angles
+        Isosceles Triangle:
+            - Two equal sides
 
-    Scalene Triangle:
-        - No equal sides
-        - No equal angles
+        Scalene Triangle:
+            - No equal sides
+
+        Right Triangle:
+            - One right angle
 
     :param a: Length of side a
     :param b: Length of side b
     :param c: Length of side c
 
-    :return:
+    :return: whether the triangle is scalene, isosceles, or equilateral,
+    and whether it is a right triangle as well.
+
+    :rtype: str
+
     """
+
     a, b, c, = float(a), float(b), float(c)
-    degree_a = round(degrees(acos((b*b + c*c - a*a) / (2*b*c))), 3)
-    degree_b = round(degrees(acos((c*c + a*a - b*b) / (2*a*c))), 3)
-    degree_c = 180 - degree_a - degree_b
+    angle_a = round(degrees(acos((b * b + c * c - a * a) / (2 * b * c))), 3)
+    angle_b = round(degrees(acos((c * c + a * a - b * b) / (2 * a * c))), 3)
+    angle_c = round(180.0 - angle_a - angle_b, 3)
+    angles = [angle_a, angle_b, angle_c]
 
-    print degree_a, degree_b, degree_c
+    # print angles
 
-    if degree_a == degree_b == degree_c:
+    if a == b == c:
         return "Equilateral Triangle"
-    if degree_a == 90.0 or degree_b == 90.0 or degree_c == 90.0:
-        return "Right Triangle"
-    if degree_a == degree_b or degree_a == degree_c:
+
+    if a == b or b == c or a == c:
+        if 90.0 in angles:
+            return "Isosceles Right Triangle"
         return "Isosceles Triangle"
+
+    if 90.0 in angles:
+        return "Scalene Right Triangle"
     return "Scalene Triangle"
 
 
