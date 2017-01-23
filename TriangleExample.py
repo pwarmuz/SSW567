@@ -1,8 +1,5 @@
 from math import acos, degrees
 
-valuesA = [8, 3, 7, 3, 6]
-valuesB = [6, 3, 8, 4, 8]
-valuesC = [7, 3, 7, 5, 10]
 
 def classifyTriangle(a, b, c):
     """
@@ -41,6 +38,13 @@ def classifyTriangle(a, b, c):
     return "Scalene Triangle"
 
 
-for i in range(0, len(valuesA)):
-    response = classifyTriangle(valuesA[i], valuesB[i], valuesC[i])
-    print "Line A: ", valuesA[i], "Line B: ", valuesB[i], "Line C: ", valuesC[i], " make a ", response
+RESPONSE_MESSAGE = "Line A: {0[0]}, Line B: {0[1]}, Line C: {0[2]} make a {1}"
+
+triangle_parameters = [(8, 6, 7),
+                       (3, 3, 3),
+                       (7, 8, 7),
+                       (3, 4, 5),
+                       (6, 8, 10)]
+
+for triangle_parameter in triangle_parameters:
+    print RESPONSE_MESSAGE.format(triangle_parameter, classifyTriangle(*triangle_parameter))
