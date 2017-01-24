@@ -1,3 +1,7 @@
+"""
+Class: SSW567 - Software Testing, Quality Assurance and Maintenance
+Assignment Number: 1
+"""
 import unittest
 from math import acos, degrees, sqrt
 
@@ -105,8 +109,6 @@ def generate_scalene_right_triangles():
 
 
 class ClassifyTriangleMethods(unittest.TestCase):
-    def shortDescription(self):
-        return None
 
     def test_equilateral(self):
         """ Test case for equilateral triangles """
