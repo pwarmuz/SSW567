@@ -3,8 +3,6 @@ Class: SSW567 - Software Testing, Quality Assurance and Maintenance
 Assignment Number: 1
 """
 from math import acos, degrees
-import unittest
-
 
 def classifyTriangle(a, b, c, angle_precision=10):
     """ Classify a triangle given the length of its 3 sides
@@ -62,12 +60,39 @@ def classifyTriangle(a, b, c, angle_precision=10):
     return "Scalene"
 
 
+def run_program_output():
+    """ Deliverable 2
+
+        Each team must deliver a screenshot or file to show the input and output of running the program on at least 5
+        different sets of input.
+
+    """
+    msg = "Triangle with side_a={0[0]}, side_b={0[1]}, and side_c={0[2]} make an {1}"
+    triangle_parameters = [(3, 3, 3),
+                           (7, 8, 7),
+                           (2, 2, 2.8284271247461903),
+                           (8, 6, 7),
+                           (6, 8, 10)]
+
+    for triangle_parameter in triangle_parameters:
+        print msg.format(triangle_parameter, classifyTriangle(*triangle_parameter))
+
+
 def run_tests():
+    """ Deliverable 3
+
+        Each team must deliver the output of your test script showing the results of at least 5 test cases.
+        You may choose to combine the  program output and the test results in a single file.
+
+    """
+    import unittest
     from test_cases import ClassifyTriangleTests
     suite = unittest.TestLoader().loadTestsFromTestCase(ClassifyTriangleTests)
     unittest.TextTestRunner(verbosity=2).run(suite)
 
 
 if __name__ == "__main__":
+    from time import sleep
     run_tests()
-
+    sleep(1)
+    run_program_output()

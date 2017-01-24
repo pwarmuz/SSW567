@@ -119,4 +119,3 @@ class ClassifyTriangleTests(unittest.TestCase):
         self.assertEquals(classifyTriangle(10, 6, 8), "Scalene Right")
         self.assertEquals(classifyTriangle(10, 8, 6), "Scalene Right")
 
-
