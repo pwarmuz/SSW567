@@ -2,7 +2,7 @@ import unittest
 from math import acos, degrees, sqrt
 
 
-def classifyTriangle(a, b, c, angle_precision=1):
+def classifyTriangle(a, b, c, angle_precision=10):
     """ Classify a triangle given the length of its 3 sides
 
         Equilateral Triangle:
@@ -41,8 +41,8 @@ def classifyTriangle(a, b, c, angle_precision=1):
     assert b + c >= a
 
     # Calculate Angles
-    angle_a = round(degrees(acos((b * b + c * c - a * a) / (2 * b * c))), angle_precision)
-    angle_b = round(degrees(acos((c * c + a * a - b * b) / (2 * a * c))), angle_precision)
+    angle_a = round(degrees(acos((b ** 2 + c ** 2 - a ** 2) / (2 * b * c))), angle_precision)
+    angle_b = round(degrees(acos((c ** 2 + a ** 2 - b ** 2) / (2 * a * c))), angle_precision)
     angle_c = round(180.0 - angle_a - angle_b, angle_precision)
     angles = [angle_a, angle_b, angle_c]
 
@@ -60,17 +60,16 @@ def classifyTriangle(a, b, c, angle_precision=1):
 
 def generate_equilateral_triangles():
     """ Generate Equilateral Triangles """
-    for i in range(1, 1000, 1):
+    for i in range(1, 1000):
         yield i, i, i
 
 
 def generate_isosceles_triangles():
     """ Generate isosceles non-right triangles
-    In an isosceles right triangle the sides are in the ratio 1:1:sqrt(2)
     """
-    for a in range(1, 1000, 1):
-        for c in range(a + 1, 10, 1):
-            if (2 * a != sqrt(c)) and (a + a > c):
+    for a in range(1, 100):
+        for c in range(a + 1, 2 * a, 1):
+            if 2 * (a ** 2) != c ** 2:
                 yield a, a, c
 
 
@@ -79,13 +78,12 @@ def generate_isosceles_right_triangles():
     In an isosceles right triangle the sides are in the ratio 1:1:sqrt(2)
     """
     a, b, c = 1, 1, 2
-    for i in range(1, 1000, 1):
+    for i in range(1, 1000):
         yield a * i, b * i, sqrt(c) * i
 
 
 def generate_scalene_triangles():
     """ Generate scalene non-right triangles """
-    # TODO: Is there a formula or theorem for generating non-right scalene triangles?
     a, b, c = 8, 6, 7
     for i in range(1, 500, 1):
         yield a * i, b * i, c * i
@@ -107,7 +105,6 @@ def generate_scalene_right_triangles():
 
 
 class ClassifyTriangleMethods(unittest.TestCase):
-
     def shortDescription(self):
         return None
 
@@ -138,17 +135,27 @@ class ClassifyTriangleMethods(unittest.TestCase):
 
     @unittest.expectedFailure
     def test_precision_fail(self):
-        """ Expected fault in program where the default angle_precision of 1 in the
+        """ Expected Precision Failure
+
+            Expected fault in program when the angle_precision of 1 in the
             classifyTriangle function will cause an Isosceles triangle to be incorrectly
             identified as isosceles right triangle
         """
-        self.assertEquals(classifyTriangle(7, 4.95, 4.95), "Isosceles")
+        a, b, c = 4.95, 4.95, 7
+        # Proves that these values do not form a right triangle
+        assert a ** 2 + b ** 2 != c ** 2
+        # classifyTriangle will return "Isosceles Right", and we are expecting the failure
+        self.assertEquals(classifyTriangle(a, b, c, angle_precision=1), "Isosceles")
 
     def test_precision_fail_fix(self):
-        """ Fix for the test_precision_fail unittest by increasing angle_precision from 1 to 2 """
-        self.assertEquals(classifyTriangle(7, 4.95, 4.95, angle_precision=2), "Isosceles")
+        """ Fix for the test_precision_fail unittest by increasing angle_precision from 1 to 3 """
+        a, b, c = 4.95, 4.95, 7
+        # Proves that these values do not form a right triangle
+        assert a ** 2 + b ** 2 != c ** 2
+        # classifyTriangle will now return "Isosceles", the correct answer
+        self.assertEquals(classifyTriangle(4.95, 4.95, 7, angle_precision=3), "Isosceles")
 
-    def test_triangle_properties_assertions(self):
+    def test_triangle_properties_assertion_errors(self):
         """ Test case for AssertionErrors being raised when side values do not match the properties of a triangle"""
 
         with self.assertRaises(AssertionError):
@@ -172,8 +179,30 @@ class ClassifyTriangleMethods(unittest.TestCase):
         with self.assertRaises(AssertionError):
             classifyTriangle(3, 1, 1)
 
+    def test_parameter_order(self):
+        """ Test case for the order of the parameters """
+        self.assertEquals(classifyTriangle(2, 2, 3), "Isosceles")
+        self.assertEquals(classifyTriangle(2, 3, 2), "Isosceles")
+        self.assertEquals(classifyTriangle(3, 2, 2), "Isosceles")
+
+        self.assertEquals(classifyTriangle(2, 2, 2.8284271247461903), "Isosceles Right")
+        self.assertEquals(classifyTriangle(2, 2.8284271247461903, 2), "Isosceles Right")
+        self.assertEquals(classifyTriangle(2.8284271247461903, 2, 2), "Isosceles Right")
+
+        self.assertEquals(classifyTriangle(16, 12, 14), "Scalene")
+        self.assertEquals(classifyTriangle(16, 14, 12), "Scalene")
+        self.assertEquals(classifyTriangle(12, 16, 14), "Scalene")
+        self.assertEquals(classifyTriangle(12, 14, 16), "Scalene")
+        self.assertEquals(classifyTriangle(14, 16, 12), "Scalene")
+        self.assertEquals(classifyTriangle(14, 12, 16), "Scalene")
+
+        self.assertEquals(classifyTriangle(6, 8, 10), "Scalene Right")
+        self.assertEquals(classifyTriangle(6, 10, 8), "Scalene Right")
+        self.assertEquals(classifyTriangle(8, 6, 10), "Scalene Right")
+        self.assertEquals(classifyTriangle(8, 10, 6), "Scalene Right")
+        self.assertEquals(classifyTriangle(10, 6, 8), "Scalene Right")
+        self.assertEquals(classifyTriangle(10, 8, 6), "Scalene Right")
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(ClassifyTriangleMethods)
     unittest.TextTestRunner(verbosity=2).run(suite)
-
