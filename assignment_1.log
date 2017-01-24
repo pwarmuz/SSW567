@@ -1,0 +1,23 @@
+test_equilateral (__main__.ClassifyTriangleMethods)
+Test case for equilateral triangles ... ok
+test_isosceles (__main__.ClassifyTriangleMethods)
+Test case for an isosceles non-right triangles ... ok
+test_isosceles_right (__main__.ClassifyTriangleMethods)
+Test case for an isosceles right triangles ... ok
+test_parameter_order (__main__.ClassifyTriangleMethods)
+Test case for the order of the parameters ... ok
+test_precision_fail (__main__.ClassifyTriangleMethods)
+Expected Precision Failure ... expected failure
+test_precision_fail_fix (__main__.ClassifyTriangleMethods)
+Fix for the test_precision_fail unittest by increasing angle_precision from 1 to 3 ... ok
+test_scalene (__main__.ClassifyTriangleMethods)
+Test case for an scalene non-right triangles ... ok
+test_scalene_right (__main__.ClassifyTriangleMethods)
+Test case for an scalene right triangles ... ok
+test_triangle_properties_assertion_errors (__main__.ClassifyTriangleMethods)
+Test case for AssertionErrors being raised when side values do not match the properties of a triangle ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.082s
+
+OK (expected failures=1)
