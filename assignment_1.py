@@ -5,6 +5,8 @@ Assignment Number: 1
 import unittest
 from math import acos, degrees, sqrt
 
+OUTPUT_FILENAME = 'assignment_1.log'
+
 
 def classifyTriangle(a, b, c, angle_precision=10):
     """ Classify a triangle given the length of its 3 sides
@@ -207,4 +209,7 @@ class ClassifyTriangleMethods(unittest.TestCase):
 
 if __name__ == "__main__":
     suite = unittest.TestLoader().loadTestsFromTestCase(ClassifyTriangleMethods)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+    f = open(OUTPUT_FILENAME, "w")
+    unittest.TextTestRunner(f, verbosity=2).run(suite)
+    f.close()
+    print "Test results saved to {0}".format(OUTPUT_FILENAME)
