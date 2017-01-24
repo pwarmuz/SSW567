@@ -1,93 +1,53 @@
-"""
-Class: SSW567 - Software Testing, Quality Assurance and Maintenance
-Assignment Number: 1
-"""
 import unittest
-from math import acos, degrees
-import triangle_generator
-
-def classifyTriangle(a, b, c, angle_precision=10):
-    """ Classify a triangle given the length of its 3 sides
-
-        Equilateral Triangle:
-            - Three equal sides
-
-        Isosceles Triangle:
-            - Two equal sides
-
-        Scalene Triangle:
-            - No equal sides
-
-        Right Triangle:
-            - One right angle
-
-    :param a: Length of side a
-    :param b: Length of side b
-    :param c: Length of side c
-    :param angle_precision: number of decimal places to round angles
-
-    :return: whether the triangle is scalene, isosceles, or equilateral,
-    and whether it is a right triangle as well.
-
-    :rtype: str
-
-    """
-
-    # Convert parameters to floats
-    a, b, c, = float(a), float(b), float(c)
-
-    # Assert properties of a triangle
-    assert a != 0.0
-    assert b != 0.0
-    assert c != 0.0
-    assert a + b >= c
-    assert a + c >= b
-    assert b + c >= a
-
-    # Calculate Angles
-    angle_a = round(degrees(acos((b ** 2 + c ** 2 - a ** 2) / (2 * b * c))), angle_precision)
-    angle_b = round(degrees(acos((c ** 2 + a ** 2 - b ** 2) / (2 * a * c))), angle_precision)
-    angle_c = round(180.0 - angle_a - angle_b, angle_precision)
-    angles = [angle_a, angle_b, angle_c]
-
-    # Classify Triangle
-    if a == b == c:
-        return "Equilateral"
-    if a == b or b == c or a == c:
-        if 90.0 in angles:
-            return "Isosceles Right"
-        return "Isosceles"
-    if 90.0 in angles:
-        return "Scalene Right"
-    return "Scalene"
+from triangle_classifier import classifyTriangle
+from math import sqrt
 
 
-class ClassifyTriangleMethods(unittest.TestCase):
+class ClassifyTriangleTests(unittest.TestCase):
     """ Test Cases for the ClassifyTriangle function """
+
+    def runTest(self):
+        pass
+
     def test_equilateral(self):
         """ Test case for equilateral triangles """
-        for triangle in triangle_generator.equilateral():
-            self.assertEquals(classifyTriangle(*triangle), "Equilateral")
+        for i in range(1, 1000):
+            self.assertEquals(classifyTriangle(i, i, i), "Equilateral")
 
     def test_isosceles(self):
         """ Test case for an isosceles non-right triangles """
-        for triangle in triangle_generator.isosceles():
-            self.assertEquals(classifyTriangle(*triangle), "Isosceles")
+        for a in range(1, 100):
+            for c in range(a + 1, 2 * a, 1):
+                if 2 * (a ** 2) != c ** 2:
+                    self.assertEquals(classifyTriangle(a, a, c), "Isosceles")
 
     def test_isosceles_right(self):
-        """ Test case for an isosceles right triangles """
-        for triangle in triangle_generator.isosceles_right():
-            self.assertEquals(classifyTriangle(*triangle), "Isosceles Right")
+        """ Test case for an isosceles right triangles
+            In an isosceles right triangle the sides are in the ratio 1:1:sqrt(2)
+        """
+        a, b, c = 1, 1, 2
+        for i in range(1, 1000):
+            self.assertEquals(classifyTriangle(a * i, b * i, sqrt(c) * i), "Isosceles Right")
 
     def test_scalene(self):
         """ Test case for an scalene non-right triangles """
-        for triangle in triangle_generator.scalene():
-            self.assertEquals(classifyTriangle(*triangle), "Scalene")
+        a, b, c = 8, 6, 7
+        for i in range(1, 500, 1):
+            self.assertEquals(classifyTriangle(a * i, b * i, c * i), "Scalene")
+
+        a, b, c = 8, 6, 14
+        for i in range(1, 500, 1):
+            self.assertEquals(classifyTriangle(a * i, b * i, c * i), "Scalene")
 
     def test_scalene_right(self):
-        """ Test case for an scalene right triangles"""
-        for triangle in triangle_generator.scalene_right():
-            self.assertEquals(classifyTriangle(*triangle), "Scalene Right")
+        """ Test case for an scalene right triangles
+
+         Use formula for pythagorean triples for any m and n, such that m>n,
+        (2 * m * n, m * m - n * n, m * m + n * n) is a pythagorean triple
+        """
+        for n in range(1, 50):
+            for m in range(n + 1, 50):
+                self.assertEquals(classifyTriangle(2 * m * n, m * m - n * n, m * m + n * n), "Scalene Right")
 
     @unittest.expectedFailure
     def test_precision_fail(self):
@@ -160,6 +120,3 @@ class ClassifyTriangleMethods(unittest.TestCase):
         self.assertEquals(classifyTriangle(10, 8, 6), "Scalene Right")
 
 
-if __name__ == "__main__":
-    suite = unittest.TestLoader().loadTestsFromTestCase(ClassifyTriangleMethods)
-    unittest.TextTestRunner(verbosity=2).run(suite)
