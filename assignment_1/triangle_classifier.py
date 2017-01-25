@@ -38,9 +38,9 @@ def classifyTriangle(a, b, c, angle_precision=10):
         return "Failed"
 
     # Assert properties of a triangle
-    assert a >= 0.0
-    assert b >= 0.0
-    assert c >= 0.0
+    assert a > 0.0
+    assert b > 0.0
+    assert c > 0.0
     assert a + b >= c
     assert a + c >= b
     assert b + c >= a
