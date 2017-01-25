@@ -32,7 +32,10 @@ def classifyTriangle(a, b, c, angle_precision=10):
     """
 
     # Convert parameters to floats
-    a, b, c, = float(a), float(b), float(c)
+    try:
+        a, b, c, = float(a), float(b), float(c)
+    except ValueError:
+        return "Failed"
 
     # Assert properties of a triangle
     assert a != 0.0

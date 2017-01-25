@@ -11,7 +11,7 @@ class ClassifyTriangleTests(unittest.TestCase):
 
     def test_equilateral(self):
         """ Test case for equilateral triangles """
-        for i in range(1, 1000):
+        for i in range(1, 100):
             self.assertEquals(classifyTriangle(i, i, i), "Equilateral")
 
     def test_isosceles(self):
@@ -26,17 +26,17 @@ class ClassifyTriangleTests(unittest.TestCase):
             In an isosceles right triangle the sides are in the ratio 1:1:sqrt(2)
         """
         a, b, c = 1, 1, 2
-        for i in range(1, 1000):
+        for i in range(1, 100):
             self.assertEquals(classifyTriangle(a * i, b * i, sqrt(c) * i), "Isosceles Right")
 
     def test_scalene(self):
         """ Test case for an scalene non-right triangles """
         a, b, c = 8, 6, 7
-        for i in range(1, 500, 1):
+        for i in range(1, 100, 1):
             self.assertEquals(classifyTriangle(a * i, b * i, c * i), "Scalene")
 
         a, b, c = 8, 6, 14
-        for i in range(1, 500, 1):
+        for i in range(1, 100, 1):
             self.assertEquals(classifyTriangle(a * i, b * i, c * i), "Scalene")
 
     def test_scalene_right(self):
@@ -94,6 +94,10 @@ class ClassifyTriangleTests(unittest.TestCase):
 
         with self.assertRaises(AssertionError):
             classifyTriangle(3, 1, 1)
+    
+    def test_letters(self):
+        a, b, c = 8, 6, 'c'
+        self.assertEquals(classifyTriangle(a, b, c), "Failed")
 
     def test_parameter_order(self):
         """ Test case for the order of the parameters """
@@ -118,4 +122,5 @@ class ClassifyTriangleTests(unittest.TestCase):
         self.assertEquals(classifyTriangle(8, 10, 6), "Scalene Right")
         self.assertEquals(classifyTriangle(10, 6, 8), "Scalene Right")
         self.assertEquals(classifyTriangle(10, 8, 6), "Scalene Right")
+        
 
