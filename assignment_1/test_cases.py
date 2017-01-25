@@ -94,7 +94,16 @@ class ClassifyTriangleTests(unittest.TestCase):
 
         with self.assertRaises(AssertionError):
             classifyTriangle(3, 1, 1)
-    
+            
+        with self.assertRaises(AssertionError):
+            classifyTriangle(-2, 2, 3)
+            
+        with self.assertRaises(AssertionError):
+            classifyTriangle(2, -2, 3)
+        
+        with self.assertRaises(AssertionError):
+            classifyTriangle(2, 2, -3)
+        
     def test_letters(self):
         a, b, c = 8, 6, 'c'
         self.assertEquals(classifyTriangle(a, b, c), "Failed")
