@@ -2,4 +2,4 @@
 *.pyc
 
 # IntelliJ Project Settings
-.idea/
+.idea/*
