@@ -11,10 +11,8 @@ Note that this code includes intentional errors for you to find.
 @author: jrr
 """
 
-""" Removed import from the original code because we import it later
-    import unittest     # this makes Python unittest module available
-
-"""
+import unittest     # this makes Python unittest module available
+import tc_buggyTriangle
 
 
 def classifyTriangle(a, b, c):
@@ -93,10 +91,8 @@ def run_tests():
 
     """
     import unittest
-    from tc_buggyTriangle import TestTriangles
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestTriangles)
+    suite = unittest.TestLoader().loadTestsFromTestCase(tc_buggyTriangle.TestTrianglesBuggy)
     unittest.TextTestRunner(verbosity=2).run(suite)
-
 
 if __name__ == "__main__":
     from time import sleep

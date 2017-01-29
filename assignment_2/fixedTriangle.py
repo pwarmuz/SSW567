@@ -8,6 +8,9 @@ The reason for two files is to leave the buggyTriangle file intact for testing a
 only modify the other file to ensure testing results are consistent as people work on the project.
 """
 
+import unittest
+import tc_buggyTriangle
+
 
 def classifyTriangle(a, b, c):
     """
@@ -80,15 +83,12 @@ def run_tests():
     """ Run the Unit testing found in buggy_test_cases
 
     """
-    import unittest
-    from tc_buggyTriangle import TestTriangles
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestTriangles)
+    suite = unittest.TestLoader().loadTestsFromTestCase(tc_buggyTriangle.TestTrainglesFixed)
     unittest.TextTestRunner(verbosity=2).run(suite)
 
 
 if __name__ == "__main__":
     from time import sleep
-
     run_program_output()
     sleep(1)
     run_tests()
