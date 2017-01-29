@@ -87,9 +87,7 @@ def run_program_output():
 
 
 def run_tests():
-    """ Run the Unit testing found in tc_buggyTriangle
-
-    """
+    """ Run the Unit tests found in test_cases.py """
     suite = unittest.TestLoader().loadTestsFromTestCase(test_cases.TestTrianglesBuggy)
     unittest.TextTestRunner(verbosity=2).run(suite)
 
