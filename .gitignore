@@ -1,0 +1,7 @@
+# Byte Compiled Python
+*.pyc
+
+# IntelliJ Project Settings
+.idea/*.xml
+.idea/*.iml
+.idea/*
