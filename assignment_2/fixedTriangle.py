@@ -9,7 +9,7 @@ only modify the other file to ensure testing results are consistent as people wo
 """
 
 import unittest
-import tc_buggyTriangle
+import test_cases
 
 
 def classifyTriangle(a, b, c):
@@ -83,7 +83,7 @@ def run_tests():
     """ Run the Unit testing found in buggy_test_cases
 
     """
-    suite = unittest.TestLoader().loadTestsFromTestCase(tc_buggyTriangle.TestTrainglesFixed)
+    suite = unittest.TestLoader().loadTestsFromTestCase(test_cases.TestTrainglesFixed)
     unittest.TextTestRunner(verbosity=2).run(suite)
 
 

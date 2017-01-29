@@ -12,7 +12,7 @@ Note that this code includes intentional errors for you to find.
 """
 
 import unittest     # this makes Python unittest module available
-import tc_buggyTriangle
+import test_cases
 
 
 def classifyTriangle(a, b, c):
@@ -90,8 +90,7 @@ def run_tests():
     """ Run the Unit testing found in tc_buggyTriangle
 
     """
-    import unittest
-    suite = unittest.TestLoader().loadTestsFromTestCase(tc_buggyTriangle.TestTrianglesBuggy)
+    suite = unittest.TestLoader().loadTestsFromTestCase(test_cases.TestTrianglesBuggy)
     unittest.TextTestRunner(verbosity=2).run(suite)
 
 if __name__ == "__main__":
