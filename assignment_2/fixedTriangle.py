@@ -50,13 +50,15 @@ def classifyTriangle(a, b, c):
     if (a >= b + c) or (b >= a + c) or (c >= a + b):
         return 'NotATriangle'
 
-    # now we know that we have a valid triangle 
-    if a == b and b == a:
+    # now we know that we have a valid triangle
+    #Note: Fixed logic included  a == c
+    if a == b and a == c and b == c:
         return 'Equilateral'
     # Note: Fixed Logic for right triangle
     elif ((a ** 2 + b ** 2) == (c ** 2)) or ((a ** 2 + c ** 2) == (b ** 2)) or ((b ** 2 + c ** 2) == (a ** 2)):
         return 'Right'
-    elif (a != b) and (b != c) and (a != b):
+    #Note: Fixed logic corrected a != c
+    elif (a != b) and (a != c) and (b != c):
         return 'Scalene'
     else:
         return 'Isosceles'  # Note: was formerly spelled incorrectly as Isoceles
@@ -74,7 +76,7 @@ def run_program_output():
                            (1, 1, 1),
                            (3, 4, 5),
                            (8, 6, 7),
-                           (6, 8, 10)]
+                           (8, 8, 10)]
 
     for triangle_parameter in triangle_parameters:
         print(msg.format(triangle_parameter, classifyTriangle(*triangle_parameter)))

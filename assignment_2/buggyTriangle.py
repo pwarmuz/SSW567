@@ -80,7 +80,7 @@ def run_program_output():
                            (1, 1, 1),
                            (3, 4, 5),
                            (8, 6, 7),
-                           (6, 8, 10)]
+                           (8, 8, 10)]
 
     for triangle_parameter in triangle_parameters:
         print(msg.format(triangle_parameter, classifyTriangle(*triangle_parameter)))

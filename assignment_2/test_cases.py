@@ -18,19 +18,20 @@ class TestTriangles(unittest.TestCase):
     def test_case_02(self):
         """ Validate Isosceles Triangle -PW"""
         self.assertNotEqual(self.func(10, 10, 10), 'Isosceles', '10, 10, 10 Should be Equilateral')
+        self.assertEqual(self.func(10, 10, 8), 'Isosceles', '10, 10, 8 Should be Isosceles')
 
     def test_case_03(self):
-        """ Validate Scalene Triangle """
+        """ Validate Scalene Triangle -CD"""
         self.assertEqual(self.func(8, 6, 7), 'Scalene', '8, 6, 7 Should be Scalene')
 
     def test_case_04(self):
-        """ Check Values, if a or b or c > 200 should = 'InvalidInput' """
+        """ Check Values, if a or b or c > 200 should = 'InvalidInput' -CD"""
         self.assertEqual(self.func(195, 10, 201), 'InvalidInput', '195, 10, 201 Should be InvalidInput')
         self.assertEqual(self.func(10, 201, 195), 'InvalidInput', '10, 201, 195 Should be InvalidInput')
         self.assertEqual(self.func(201, 195, 10), 'InvalidInput', '201, 195, 10 Should be InvalidInput')
 
     def test_case_05(self):
-        """ Check Values, if a or b or c <= 0 should = 'InvalidInput' """
+        """ Check Values, if a or b or c <= 0 should = 'InvalidInput' -CD"""
         self.assertEqual(self.func(-2, 2, 3), 'InvalidInput', '-2, 2, 3 Should be InvalidInput')
         self.assertEqual(self.func(2, -2, 3), 'InvalidInput', '2, -2, 3 Should be InvalidInput')
         self.assertEqual(self.func(2, 2, -3), 'InvalidInput', '2, 2, -3 Should be InvalidInput')
@@ -40,7 +41,7 @@ class TestTriangles(unittest.TestCase):
         self.assertEqual(self.func(2, 2, 0), 'InvalidInput', '2, 2, 0 Should be InvalidInput')
 
     def test_case_06(self):
-        """  Check input value is integer else = 'InvalidInput' """
+        """  Check input value is integer else = 'InvalidInput' -CD"""
         self.assertEqual(self.func("3", 3, 3), 'InvalidInput', '"3", 3, 3 Should be InvalidInput')
         self.assertEqual(self.func(3, "3", 3), 'InvalidInput', '3, "3", 3 Should be InvalidInput')
         self.assertEqual(self.func(3, 3, "3"), 'InvalidInput', '3, 3, "3" Should be InvalidInput')
@@ -61,6 +62,14 @@ class TestTriangles(unittest.TestCase):
         self.assertEqual(self.func(2, 3, 2), 'Isosceles', '2,3,2 is a Isosceles triangle')
         self.assertEqual(self.func(3, 2, 2), 'Isosceles', '3,2,2 is a Isosceles triangle')
 
+        self.assertEqual(self.func(1, 1, 1), 'Equilateral', '1, 1, 1 Should be Equilateral')
+
+        self.assertEqual(self.func(8, 6, 7), 'Scalene', '8, 6, 7 Should be Scalene')
+        self.assertEqual(self.func(8, 7, 6), 'Scalene', '8, 7, 6 Should be Scalene')
+        self.assertEqual(self.func(6, 7, 8), 'Scalene', '6, 7, 8 Should be Scalene')
+        self.assertEqual(self.func(6, 8, 7), 'Scalene', '6, 8, 7 Should be Scalene')
+        self.assertEqual(self.func(7, 8, 6), 'Scalene', '7, 8, 6 Should be Scalene')
+        self.assertEqual(self.func(7, 6, 8), 'Scalene', '7, 6, 8 Should be Scalene')
 
 class TestTrianglesFixed(TestTriangles):
     def setUp(self):
