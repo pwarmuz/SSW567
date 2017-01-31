@@ -50,13 +50,13 @@ class TestTriangles(unittest.TestCase):
         self.assertEqual(self.func(8, 8, 9.2), 'InvalidInput', '8, 8, 9.2 Should be InvalidInput')
         self.assertEqual(self.func(3.5, 4.5, 6), 'InvalidInput', '3.5, 4.5, 6 Should be InvalidInput')
 
-    def test_case_08(self):
-        """ Check that the sum of any 2 sides is greather than the 3rd side, if it fails = 'NotATriangle' -JT"""
+    def test_case_07(self):
+        """ Check that the sum of any 2 sides is greater than the 3rd side, if it fails = 'NotATriangle' -JT"""
         self.assertEqual(self.func(11, 6, 4), 'NotATriangle', '11, 6, 4 Should be NotATriangle')
         self.assertEqual(self.func(6, 11, 4), 'NotATriangle', '6, 11, 4 Should be NotATriangle')
         self.assertEqual(self.func(6, 4, 11), 'NotATriangle', '6, 4, 11 Should be NotATriangle')
 
-    def test_case_09(self):
+    def test_case_08(self):
         """ Check parameter order - PW"""
         self.assertEqual(self.func(3, 4, 5), 'Right', '3,4,5 is a Right triangle')
         self.assertEqual(self.func(4, 5, 3), 'Right', '4,5,3 is a Right triangle')
@@ -74,6 +74,7 @@ class TestTriangles(unittest.TestCase):
         self.assertEqual(self.func(6, 8, 7), 'Scalene', '6, 8, 7 Should be Scalene')
         self.assertEqual(self.func(7, 8, 6), 'Scalene', '7, 8, 6 Should be Scalene')
         self.assertEqual(self.func(7, 6, 8), 'Scalene', '7, 6, 8 Should be Scalene')
+
 
 class TestTrianglesFixed(TestTriangles):
     def setUp(self):
