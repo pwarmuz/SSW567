@@ -41,19 +41,20 @@ class TestTriangles(unittest.TestCase):
         self.assertEqual(self.func(2, 2, 0), 'InvalidInput', '2, 2, 0 Should be InvalidInput')
 
     def test_case_06(self):
-        """  Check input value is integer else = 'InvalidInput' -CD"""
+        """  Check input value is integer else = 'InvalidInput' -CD (str) and -JT (float)"""
         self.assertEqual(self.func("3", 3, 3), 'InvalidInput', '"3", 3, 3 Should be InvalidInput')
         self.assertEqual(self.func(3, "3", 3), 'InvalidInput', '3, "3", 3 Should be InvalidInput')
         self.assertEqual(self.func(3, 3, "3"), 'InvalidInput', '3, 3, "3" Should be InvalidInput')
+        self.assertEqual(self.func(5.5, 5.5, 5.5), 'InvalidInput', '5.5, 5.5, 5.5 Should be InvalidInput')
+        self.assertEqual(self.func(2.5, 6, 6.5), 'InvalidInput', '2.5, 6, 6.5 Should be InvalidInput')
+        self.assertEqual(self.func(8, 8, 9.2), 'InvalidInput', '8, 8, 9.2 Should be InvalidInput')
+        self.assertEqual(self.func(3.5, 4.5, 6), 'InvalidInput', '3.5, 4.5, 6 Should be InvalidInput')
 
-    def test_case_07(self):
+    def test_case_08(self):
         """ Check that the sum of any 2 sides is greather than the 3rd side, if it fails = 'NotATriangle' -JT"""
         self.assertEqual(self.func(11, 6, 4), 'NotATriangle', '11, 6, 4 Should be NotATriangle')
         self.assertEqual(self.func(6, 11, 4), 'NotATriangle', '6, 11, 4 Should be NotATriangle')
         self.assertEqual(self.func(6, 4, 11), 'NotATriangle', '6, 4, 11 Should be NotATriangle')
-
-    def test_case_08(self):
-        """ Check Values, if a or b or c <= 0 should = 'InvalidInput' """
 
     def test_case_09(self):
         """ Check parameter order - PW"""
