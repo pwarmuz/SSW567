@@ -47,7 +47,10 @@ class TestTriangles(unittest.TestCase):
         self.assertEqual(self.func(3, 3, "3"), 'InvalidInput', '3, 3, "3" Should be InvalidInput')
 
     def test_case_07(self):
-        """ Check that the sum of any 2 sides is less then the 3rd side, if it fails = 'NotATriangle' """
+        """ Check that the sum of any 2 sides is greather than the 3rd side, if it fails = 'NotATriangle' -JT"""
+        self.assertEqual(self.func(11, 6, 4), 'NotATriangle', '11, 6, 4 Should be NotATriangle')
+        self.assertEqual(self.func(6, 11, 4), 'NotATriangle', '6, 11, 4 Should be NotATriangle')
+        self.assertEqual(self.func(6, 4, 11), 'NotATriangle', '6, 4, 11 Should be NotATriangle')
 
     def test_case_08(self):
         """ Check Values, if a or b or c <= 0 should = 'InvalidInput' """
