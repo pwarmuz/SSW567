@@ -57,13 +57,13 @@ class TestTriangles(unittest.TestCase):
         self.assertEqual(self.func(6, 4, 11), 'NotATriangle', '6, 4, 11 Should be NotATriangle')
 
     def test_case_06(self):
-        """ Check Values, if a or b or c > 200 should = 'InvalidInput' R1 R2.2"""
+        """ Check Values, if a or b or c > 200 should = 'InvalidInput' R2.2"""
         self.assertEqual(self.func(195, 10, 201), 'InvalidInput', '195, 10, 201 Should be InvalidInput')
         self.assertEqual(self.func(10, 201, 195), 'InvalidInput', '10, 201, 195 Should be InvalidInput')
         self.assertEqual(self.func(201, 195, 10), 'InvalidInput', '201, 195, 10 Should be InvalidInput')
 
     def test_case_07(self):
-        """ Check Values, if a or b or c <= 0 should = 'InvalidInput' R1 R2.1"""
+        """ Check Values, if a or b or c <= 0 should = 'InvalidInput' R2.1"""
         self.assertEqual(self.func(-2, 2, 3), 'InvalidInput', '-2, 2, 3 Should be InvalidInput')
         self.assertEqual(self.func(2, -2, 3), 'InvalidInput', '2, -2, 3 Should be InvalidInput')
         self.assertEqual(self.func(2, 2, -3), 'InvalidInput', '2, 2, -3 Should be InvalidInput')
