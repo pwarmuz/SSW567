@@ -27,7 +27,10 @@ def classifyTriangle(a, b, c):
       
       
       BEWARE: there may be a bug or two in this code
-        
+
+        Assignment 4 update: The requirements do not match the previous assignment well
+        There are issues with Right Iso.
+        There are no angle conversions so precision is not needed.
     """
     # require that the input values be > 0 and <= 200
     # fixed syntax
@@ -60,7 +63,7 @@ def classifyTriangle(a, b, c):
         if (a != b) and (a != c) and (b != c):
             return 'Right Scalene'
         else:
-            return 'Right Isosceles'  # Note: was formerly spelled incorrectly as Isoceles
+            return 'Right Isosceles'  # ISSUE: Because int's are forced via isinstance then this cannot work as one side needs a root
     else:
         return 'Isosceles'  # Note: was formerly spelled incorrectly as Isoceles
 

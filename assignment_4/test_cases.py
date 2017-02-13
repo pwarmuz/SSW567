@@ -1,3 +1,4 @@
+# coding=utf-8
 import unittest
 
 
@@ -29,7 +30,7 @@ class TestTriangles(unittest.TestCase):
 
     def test_case_00(self):
         """ Validate Right Isosceles Triangle R6.1 R4.1"""
-        self.assertEqual(self.func(6, 6, 8), 'Right Isosceles', '6, 6, 8 Should Be Right')
+        self.assertEqual(self.func(3, 3, 4.2), 'Right Isosceles', '3, 3, 4.2 Should Be Right')
 
     def test_case_01(self):
         """ Validate Right Scalene Triangle R6.2 R4.1"""
