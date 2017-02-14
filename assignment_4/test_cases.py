@@ -2,7 +2,7 @@
 import unittest
 from math import sqrt
 from itertools import permutations
-
+from fixedTriangle import is_within_1_percent
 
 class TestTriangles(unittest.TestCase):
 
@@ -64,10 +64,23 @@ class TestTriangles(unittest.TestCase):
     @classmethod
     def isosceles_triangles(cls):
         """ Generate Isosceles (Non-Right) Triangles (all values <= 200) """
-        for a in range(1, 100):
-            for c in range(a + 1, 2 * a, 1):
+        for a in range(1, 101):
+            for c in range(a + 1, 2 * a):
                 if 2 * (a ** 2) != c ** 2:
+                    if is_within_1_percent(2 * (a ** 2), c ** 2):
+                        continue
                     yield a, a, c
+
+    @classmethod
+    def isosceles_triangles_bug(cls):
+        """ Generate Isosceles (Non-Right) Triangles (all values <= 200)
+            These bug values will incorrectly get classified as Isosceles Right Triangle Due to precision error.
+        """
+        for a in range(1, 101):
+            for c in range(a + 1, 2 * a):
+                if 2 * (a ** 2) != c ** 2:
+                    if is_within_1_percent(2 * (a ** 2), c ** 2):
+                        yield a, a, c
 
     def __assert_equals_test_case(self, generator_name, expected_value):
         for triangle in getattr(self, generator_name)():
@@ -92,6 +105,12 @@ class TestTriangles(unittest.TestCase):
     def test_case_03_isosceles(self):
         """ Validate Isosceles Triangle R6.4 & R5.2"""
         self.__assert_equals_test_case("isosceles_triangles", 'Isosceles Triangle')
+
+    def test_case_03b_isosceles_precision_bug(self):
+        """ Precision of one percent leads to isosceles triangles mistaken for Right Isosceles Triangles,
+            examples: (12, 12, 17), (17, 17, 24), (19, 19, 27), (22, 22, 31)
+        """
+        self.__assert_equals_test_case("isosceles_triangles_bug", 'Right Isosceles Triangle')
 
     #def test_case_04(self):
     #    """ Check that it is a legal triangle R3.1"""

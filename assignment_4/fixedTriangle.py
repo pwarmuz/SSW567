@@ -16,7 +16,7 @@ MAX_INPUT_VALUE = 200
 
 
 def is_within_1_percent(x, y):
-    return abs((x - y) / x) <= .001
+    return abs(float(x - y) / x) <= .01
 
 
 def classifyTriangle(a, b, c):
@@ -65,5 +65,7 @@ def classifyTriangle(a, b, c):
 
 if __name__ == "__main__":
     """ Run the Unit tests found in test_cases.py """
+
+
     suite = unittest.TestLoader().loadTestsFromTestCase(test_cases.TestTrianglesFixed)
     unittest.TextTestRunner(verbosity=2).run(suite)
