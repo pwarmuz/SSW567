@@ -36,13 +36,13 @@ class TestTriangles(unittest.TestCase):
         self.func = None
 
     @classmethod
-    def right_isosceles_triangles(cls):
+    def yield_right_isosceles_triangles(cls):
         """ Generate Right Isosceles Triangles (all values <= 200) """
         for i in range(1, 142):
             yield 1 * i, 1 * i, sqrt(2) * i
 
     @classmethod
-    def right_scalene_triangles(cls):
+    def yield_right_scalene_triangles(cls):
         """ Generate Right Scalene Triangles (all values <= 200) """
         for n in range(1, 10):
             m = n + 1
@@ -55,14 +55,14 @@ class TestTriangles(unittest.TestCase):
                     break
 
     @classmethod
-    def equilateral_triangles(cls):
+    def yield_equilateral_triangles(cls):
         """ Generate Right Equilateral Triangles (all values <= 200) """
         for i in range(1, 201):
             yield i-.5, i-.5, i-.5
             yield i, i, i
 
     @classmethod
-    def isosceles_triangles(cls):
+    def yield_isosceles_triangles(cls):
         """ Generate Isosceles (Non-Right) Triangles (all values <= 200) """
         for a in range(1, 101):
             for c in range(a + 1, 2 * a):
@@ -87,19 +87,19 @@ class TestTriangles(unittest.TestCase):
 
     def test_case_00_right_isosceles(self):
         """ Validate Right Isosceles Triangle R6.1 R4.1"""
-        self.__assert_equals_test_case(self.right_isosceles_triangles(), 'Right Isosceles Triangle')
+        self.__assert_equals_test_case(self.yield_right_isosceles_triangles(), 'Right Isosceles Triangle')
 
     def test_case_01_right_scalene(self):
         """ Validate Right Scalene Triangle R6.2 R4.1"""
-        self.__assert_equals_test_case(self.right_scalene_triangles(), 'Right Scalene Triangle')
+        self.__assert_equals_test_case(self.yield_right_scalene_triangles(), 'Right Scalene Triangle')
 
     def test_case_02_equilateral(self):
         """ Validate Equilateral Triangle R6.3 & R5.1"""
-        self.__assert_equals_test_case(self.equilateral_triangles(), 'Equilateral Triangle')
+        self.__assert_equals_test_case(self.yield_equilateral_triangles(), 'Equilateral Triangle')
 
     def test_case_03_isosceles(self):
         """ Validate Isosceles Triangle R6.4 & R5.2"""
-        self.__assert_equals_test_case(self.isosceles_triangles(), 'Isosceles Triangle')
+        self.__assert_equals_test_case(self.yield_isosceles_triangles(), 'Isosceles Triangle')
 
     def test_case_04_legal_triangle(self):
         """ Verify that the sides form a legal triangle (Triangle Inequality) R3.1"""
@@ -120,6 +120,11 @@ class TestTriangles(unittest.TestCase):
     def test_case_08_not_a_real_number(self):
         """  Check input value can't be converted to a float R2.1 """
         self.__assert_equals_test_case([("A", 1, 1)], 'InvalidInput')
+
+    def test_case_09_one_percent_precision(self):
+        """  Check to see if precision of 2 decimal places correctly identifies Right Isosceles Triangle R4.2 """
+        self.assertEquals(self.func(1, 1, 1.4142135623730951, precision=100), 'Isosceles Triangle')
+        self.assertEquals(self.func(1, 1, 1.4142135623730951, precision=2), 'Right Isosceles Triangle')
 
 
 class TestTrianglesFixed(TestTriangles):

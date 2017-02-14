@@ -11,14 +11,10 @@ only modify the other file to ensure testing results are consistent as people wo
 import unittest
 import test_cases
 
-
 MAX_INPUT_VALUE = 200
 
 
-def is_right(a, b, c):
-    return abs(float(x - y) / x) <= .01
-
-def classifyTriangle(a, b, c):
+def classifyTriangle(a, b, c, precision=2):
     """
     
     This function returns a string with the type of triangle from three integer values
@@ -32,7 +28,6 @@ def classifyTriangle(a, b, c):
         If the sum of any two sides equals the squate of the third side, then return 'Right'
       
     """
-
     # Attempt to convert input variables to floats
     try:
         a, b, c, = float(a), float(b), float(c)
@@ -55,12 +50,11 @@ def classifyTriangle(a, b, c):
     if a == b and a == c and b == c:
         return 'Equilateral Triangle'
 
-    if a ** 2 + b ** 2 == round(c ** 2, 2) or a ** 2 + c ** 2 == round(b ** 2, 2) or b ** 2 + c ** 2 == round(a ** 2, 2):
+    if a ** 2 + b ** 2 == round(c ** 2, precision) or a ** 2 + c ** 2 == round(b ** 2, precision) or b ** 2 + c ** 2 == round(a ** 2, precision):
         return "Right Isosceles Triangle" if a == b or b == c or a == c else "Right Scalene Triangle"
     return "Isosceles Triangle" if a == b or b == c or a == c else "Scalene Triangle"
 
 if __name__ == "__main__":
     """ Run the Unit tests found in test_cases.py """
-
     suite = unittest.TestLoader().loadTestsFromTestCase(test_cases.TestTrianglesFixed)
     unittest.TextTestRunner(verbosity=2).run(suite)
