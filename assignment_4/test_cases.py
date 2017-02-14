@@ -56,7 +56,7 @@ class TestTriangles(unittest.TestCase):
 
     @classmethod
     def equilateral_triangles(cls):
-        """ Generate Right Scalene Triangles (all values <= 200) """
+        """ Generate Right Equilateral Triangles (all values <= 200) """
         for i in range(1, 201):
             yield i-.5, i-.5, i-.5
             yield i, i, i
