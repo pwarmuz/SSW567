@@ -18,7 +18,6 @@ MAX_INPUT_VALUE = 200
 def is_within_1_percent(x, y):
     return abs(float(x - y) / x) <= .01
 
-
 def classifyTriangle(a, b, c):
     """
     
@@ -56,16 +55,15 @@ def classifyTriangle(a, b, c):
     if a == b and a == c and b == c:
         return 'Equilateral Triangle'
 
+    #is_right = (a ** 2 + b ** 2 == c ** 2) or (a ** 2 + c ** 2 == b ** 2) or (b ** 2 + c ** 2 == a ** 2)
     is_right = is_within_1_percent(a ** 2 + b ** 2, c ** 2) or is_within_1_percent(a ** 2 + c ** 2, b ** 2) or is_within_1_percent(b ** 2 + c ** 2, a ** 2)
 
     if a == b or b == c or a == c:
         return "Right Isosceles Triangle" if is_right else "Isosceles Triangle"
     return "Right Scalene Triangle" if is_right else "Scalene Triangle"
 
-
 if __name__ == "__main__":
     """ Run the Unit tests found in test_cases.py """
-
 
     suite = unittest.TestLoader().loadTestsFromTestCase(test_cases.TestTrianglesFixed)
     unittest.TextTestRunner(verbosity=2).run(suite)

@@ -107,7 +107,7 @@ class TestTriangles(unittest.TestCase):
         self.__assert_equals_test_case("isosceles_triangles", 'Isosceles Triangle')
 
     def test_case_03b_isosceles_precision_bug(self):
-        """ Precision of one percent leads to isosceles triangles mistaken for Right Isosceles Triangles,
+        """ Precision of one percent leads to isosceles triangles mistaken for Right Isosceles Triangles
             examples: (12, 12, 17), (17, 17, 24), (19, 19, 27), (22, 22, 31)
         """
         self.__assert_equals_test_case("isosceles_triangles_bug", 'Right Isosceles Triangle')
