@@ -114,16 +114,12 @@ class TestTriangles(unittest.TestCase):
 
     def test_case_04_legal_triangle(self):
         """ Verify that the sides form a legal triangle (Triangle Inequality) R3.1"""
-        for a, b, c in permutations((4, 4, 8)):
-            try:
-                self.assertNotEqual(self.func(a, b, c), 'NotATriangle')
-            except AssertionError as e:
-                raise AssertionError('For triangle with parameters {0}, {1}'.format((a, b, c), e.message))
-        for a, b, c in permutations((4, 5, 8)):
-            try:
-                self.assertNotEqual(self.func(a, b, c), 'NotATriangle')
-            except AssertionError as e:
-                raise AssertionError('For triangle with parameters {0}, {1}'.format((a, b, c), e.message))
+        for p in [(4, 4, 8), (4, 5, 8)]:
+            for a, b, c in permutations(p):
+                try:
+                    self.assertNotEqual(self.func(a, b, c), 'NotATriangle')
+                except AssertionError as e:
+                    raise AssertionError('For triangle with parameters {0}, {1}'.format((a, b, c), e.message))
 
     def test_case_05_not_legal_triangle(self):
         """ Verify that the sides don't form a legal triangle (Triangle Inequality) R3.2"""
@@ -133,31 +129,28 @@ class TestTriangles(unittest.TestCase):
             except AssertionError as e:
                 raise AssertionError('For triangle with parameters {0}, {1}'.format((a, b, c), e.message))
 
-    #def test_case_06(self):
-    #    """ Check Values, if a or b or c > 200 should = 'InvalidInput' R2.2"""
-    #    self.assertEqual(self.func(195, 10, 201), 'InvalidInput', '195, 10, 201 Should be InvalidInput')
-    #    self.assertEqual(self.func(10, 201, 195), 'InvalidInput', '10, 201, 195 Should be InvalidInput')
-    #    self.assertEqual(self.func(201, 195, 10), 'InvalidInput', '201, 195, 10 Should be InvalidInput')
+    def test_case_06_side_too_big(self):
+        """ Check Values, if a or b or c > 200 should = 'InvalidInput' R2.2"""
+        for a, b, c in permutations((195, 10, 201)):
+            try:
+                self.assertEqual(self.func(a, b, c), 'InvalidInput')
+            except AssertionError as e:
+                raise AssertionError('For triangle with parameters {0}, {1}'.format((a, b, c), e.message))
 
-    #def test_case_07(self):
-    #    """ Check Values, if a or b or c <= 0 should = 'InvalidInput' R2.1"""
-    #    self.assertEqual(self.func(-2, 2, 3), 'InvalidInput', '-2, 2, 3 Should be InvalidInput')
-    #    self.assertEqual(self.func(2, -2, 3), 'InvalidInput', '2, -2, 3 Should be InvalidInput')
-    #    self.assertEqual(self.func(2, 2, -3), 'InvalidInput', '2, 2, -3 Should be InvalidInput')
+    def test_case_07_side_too_small(self):
+        """ Check Values, if a or b or c <= 0 should = 'InvalidInput' R2.1"""
+        for p in [(-2, 2, 3), (0, 2, 3)]:
+            for a, b, c in permutations(p):
+                try:
+                    self.assertEqual(self.func(a, b, c), 'InvalidInput')
+                except AssertionError as e:
+                    raise AssertionError('For triangle with parameters {0}, {1}'.format((a, b, c), e.message))
 
-    #    self.assertEqual(self.func(0, 2, 3), 'InvalidInput', '0, 2, 3 Should be InvalidInput')
-    #    self.assertEqual(self.func(2, 0, 3), 'InvalidInput', '2, 0, 3 Should be InvalidInput')
-    #    self.assertEqual(self.func(2, 2, 0), 'InvalidInput', '2, 2, 0 Should be InvalidInput')
-
-    #def test_case_08(self):
-    #    """  Check input value is integer else = 'InvalidInput' (str)(float) R2.1 """
-    #    self.assertEqual(self.func("3", 3, 3), 'InvalidInput', '"3", 3, 3 Should be InvalidInput')
-    #    self.assertEqual(self.func(3, "3", 3), 'InvalidInput', '3, "3", 3 Should be InvalidInput')
-    #    self.assertEqual(self.func(3, 3, "3"), 'InvalidInput', '3, 3, "3" Should be InvalidInput')
-    #    self.assertEqual(self.func(5.5, 5.5, 5.5), 'InvalidInput', '5.5, 5.5, 5.5 Should be InvalidInput')
-    #    self.assertEqual(self.func(2.5, 6, 6.5), 'InvalidInput', '2.5, 6, 6.5 Should be InvalidInput')
-    #    self.assertEqual(self.func(8, 8, 9.2), 'InvalidInput', '8, 8, 9.2 Should be InvalidInput')
-    #    self.assertEqual(self.func(3.5, 4.5, 6), 'InvalidInput', '3.5, 4.5, 6 Should be InvalidInput')
+    def test_case_08_not_a_real_number(self):
+        """  Check input value can't be converted to a float R2.1 """
+        self.assertEqual(self.func("A", 1, 1), 'InvalidInput', '5.5, 5.5, 5.5 Should be InvalidInput')
+        self.assertEqual(self.func(1, "A", 1), 'InvalidInput', '8, 8, 9.2 Should be InvalidInput')
+        self.assertEqual(self.func(1, 1, "A"), 'InvalidInput', '3.5, 4.5, 6 Should be InvalidInput')
 
 
 class TestTrianglesFixed(TestTriangles):
