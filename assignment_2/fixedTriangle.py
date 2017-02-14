@@ -43,7 +43,7 @@ def classifyTriangle(a, b, c):
     if not (isinstance(a, int) and isinstance(b, int) and isinstance(c, int)):
         return 'InvalidInput'
 
-    # This information was not in the requirements spec but 
+    # This information was not in the requirements spec but
     # is important for correctness
     # the sum of any two sides must be strictly less than the third side
     # of the specified shape is not a triangle

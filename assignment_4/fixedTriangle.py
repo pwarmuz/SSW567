@@ -12,6 +12,13 @@ import unittest
 import test_cases
 
 
+MAX_INPUT_VALUE = 200
+
+
+def is_within_1_percent(x, y):
+    return abs((x - y) / x) <= .001
+
+
 def classifyTriangle(a, b, c):
     """
     
@@ -25,78 +32,38 @@ def classifyTriangle(a, b, c):
         If not a valid triangle, then return 'NotATriangle'
         If the sum of any two sides equals the squate of the third side, then return 'Right'
       
-      
-      BEWARE: there may be a bug or two in this code
-
-        Assignment 4 update: The requirements do not match the previous assignment well
-        There are issues with Right Iso.
-        There are no angle conversions so precision is not needed.
     """
 
-    # Attempt to convert parameters to floats
+    # Attempt to convert input variables to floats
     try:
         a, b, c, = float(a), float(b), float(c)
     except ValueError:
         return 'InvalidInput'
 
-    # require that the input values be > 0 and <= 200
-    # fixed syntax
-    if a > 200 or b > 200 or c > 200:
+    # Check if input values are too big
+    if a > MAX_INPUT_VALUE or b > MAX_INPUT_VALUE or c > MAX_INPUT_VALUE:
         return 'InvalidInput'
 
-    # fixed syntax
+    # Check if input values are too small
     if a <= 0 or b <= 0 or c <= 0:
         return 'InvalidInput'
 
-
-    # This information was not in the requirements spec but 
-    # is important for correctness
-    # the sum of any two sides must be strictly less than the third side
-    # of the specified shape is not a triangle
+    # Triangle inequality
+    # The sum of the lengths of any two sides must be greater than or equal to the length of the remaining side.
     if (a >= b + c) or (b >= a + c) or (c >= a + b):
         return 'NotATriangle'
 
-    # now we know that we have a valid triangle
-    # Note: Fixed logic included  a == c
     if a == b and a == c and b == c:
-        return 'Equilateral'
-    # Note: Fixed Logic for right triangle
-    elif ((a ** 2 + b ** 2) == (c ** 2)) or ((a ** 2 + c ** 2) == (b ** 2)) or ((b ** 2 + c ** 2) == (a ** 2)):
-        # considered Right Note: Fixed logic corrected a != c
-        if (a != b) and (a != c) and (b != c):
-            return 'Right Scalene'
-        else:
-            return 'Right Isosceles'  # ISSUE: Because int's are forced via isinstance then this cannot work as one side needs a root
-    else:
-        return 'Isosceles'  # Note: was formerly spelled incorrectly as Isoceles
+        return 'Equilateral Triangle'
 
+    is_right = is_within_1_percent(a ** 2 + b ** 2, c ** 2) or is_within_1_percent(a ** 2 + c ** 2, b ** 2) or is_within_1_percent(b ** 2 + c ** 2, a ** 2)
 
-def run_program_output():
-    """ Runs 3 sides of a triangle
-        Reserved the  numbers from the original example
-            runClassifyTriangle(1,2,3)
-            runClassifyTriangle(1,1,1)
-            runClassifyTriangle(3,4,5)
-    """
-    msg = "Triangle with side_a={0[0]}, side_b={0[1]}, and side_c={0[2]} make an {1}"
-    triangle_parameters = [(1, 2, 3),
-                           (1, 1, 1),
-                           (3, 4, 5),
-                           (8, 6, 7),
-                           (8, 8, 10)]
-
-    for triangle_parameter in triangle_parameters:
-        print(msg.format(triangle_parameter, classifyTriangle(*triangle_parameter)))
-
-
-def run_tests():
-    """ Run the Unit tests found in test_cases.py """
-    suite = unittest.TestLoader().loadTestsFromTestCase(test_cases.TestTrianglesFixed)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+    if a == b or b == c or a == c:
+        return "Right Isosceles Triangle" if is_right else "Isosceles Triangle"
+    return "Right Scalene Triangle" if is_right else "Scalene Triangle"
 
 
 if __name__ == "__main__":
-    from time import sleep
-    run_program_output()
-    sleep(1)
-    run_tests()
+    """ Run the Unit tests found in test_cases.py """
+    suite = unittest.TestLoader().loadTestsFromTestCase(test_cases.TestTrianglesFixed)
+    unittest.TextTestRunner(verbosity=2).run(suite)
