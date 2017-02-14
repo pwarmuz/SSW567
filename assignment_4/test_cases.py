@@ -82,75 +82,63 @@ class TestTriangles(unittest.TestCase):
                     if is_within_1_percent(2 * (a ** 2), c ** 2):
                         yield a, a, c
 
-    def __assert_equals_test_case(self, generator_name, expected_value):
-        for triangle in getattr(self, generator_name)():
+    def __assert_equals_test_case(self, values, expected_value):
+        for triangle in values:
             for a, b, c in permutations(triangle):
                 try:
                     self.assertEquals(self.func(a, b, c), expected_value)
                 except AssertionError as e:
                     raise AssertionError('For triangle with parameters {0}, {1}'.format((a, b, c), e.message))
 
+    def __assert_not_equal_test_case(self, values, expected_value):
+        for triangle in values:
+            for a, b, c in permutations(triangle):
+                try:
+                    self.assertNotEqual(self.func(a, b, c), expected_value)
+                except AssertionError as e:
+                    raise AssertionError('For triangle with parameters {0}, {1}'.format((a, b, c), e.message))
+
     def test_case_00_right_isosceles(self):
         """ Validate Right Isosceles Triangle R6.1 R4.1"""
-        self.__assert_equals_test_case("right_isosceles_triangles", 'Right Isosceles Triangle')
+        self.__assert_equals_test_case(self.right_isosceles_triangles(), 'Right Isosceles Triangle')
 
     def test_case_01_right_scalene(self):
         """ Validate Right Scalene Triangle R6.2 R4.1"""
-        self.__assert_equals_test_case("right_scalene_triangles", 'Right Scalene Triangle')
+        self.__assert_equals_test_case(self.right_scalene_triangles(), 'Right Scalene Triangle')
 
     def test_case_02_equilateral(self):
         """ Validate Equilateral Triangle R6.3 & R5.1"""
-        self.__assert_equals_test_case("equilateral_triangles", 'Equilateral Triangle')
+        self.__assert_equals_test_case(self.equilateral_triangles(), 'Equilateral Triangle')
 
     def test_case_03_isosceles(self):
         """ Validate Isosceles Triangle R6.4 & R5.2"""
-        self.__assert_equals_test_case("isosceles_triangles", 'Isosceles Triangle')
+        self.__assert_equals_test_case(self.isosceles_triangles(), 'Isosceles Triangle')
 
     def test_case_03b_isosceles_precision_bug(self):
         """ Precision of one percent leads to isosceles triangles mistaken for Right Isosceles Triangles
             examples: (12, 12, 17), (17, 17, 24), (19, 19, 27), (22, 22, 31)
         """
-        self.__assert_equals_test_case("isosceles_triangles_bug", 'Right Isosceles Triangle')
+        self.__assert_equals_test_case(self.isosceles_triangles_bug(), 'Right Isosceles Triangle')
 
     def test_case_04_legal_triangle(self):
         """ Verify that the sides form a legal triangle (Triangle Inequality) R3.1"""
-        for p in [(4, 4, 8), (4, 5, 8)]:
-            for a, b, c in permutations(p):
-                try:
-                    self.assertNotEqual(self.func(a, b, c), 'NotATriangle')
-                except AssertionError as e:
-                    raise AssertionError('For triangle with parameters {0}, {1}'.format((a, b, c), e.message))
+        self.__assert_not_equal_test_case([(4, 4, 8), (4, 5, 8)], 'NotATriangle')
 
     def test_case_05_not_legal_triangle(self):
         """ Verify that the sides don't form a legal triangle (Triangle Inequality) R3.2"""
-        for a, b, c in permutations((4, 6, 11)):
-            try:
-                self.assertEqual(self.func(a, b, c), 'NotATriangle')
-            except AssertionError as e:
-                raise AssertionError('For triangle with parameters {0}, {1}'.format((a, b, c), e.message))
+        self.__assert_equals_test_case([(4, 6, 11)], 'NotATriangle')
 
     def test_case_06_side_too_big(self):
         """ Check Values, if a or b or c > 200 should = 'InvalidInput' R2.2"""
-        for a, b, c in permutations((195, 10, 201)):
-            try:
-                self.assertEqual(self.func(a, b, c), 'InvalidInput')
-            except AssertionError as e:
-                raise AssertionError('For triangle with parameters {0}, {1}'.format((a, b, c), e.message))
+        self.__assert_equals_test_case([(195, 10, 201)], 'InvalidInput')
 
     def test_case_07_side_too_small(self):
         """ Check Values, if a or b or c <= 0 should = 'InvalidInput' R2.1"""
-        for p in [(-2, 2, 3), (0, 2, 3)]:
-            for a, b, c in permutations(p):
-                try:
-                    self.assertEqual(self.func(a, b, c), 'InvalidInput')
-                except AssertionError as e:
-                    raise AssertionError('For triangle with parameters {0}, {1}'.format((a, b, c), e.message))
+        self.__assert_equals_test_case([(-2, 2, 3), (0, 2, 3)], 'InvalidInput')
 
     def test_case_08_not_a_real_number(self):
         """  Check input value can't be converted to a float R2.1 """
-        self.assertEqual(self.func("A", 1, 1), 'InvalidInput', '5.5, 5.5, 5.5 Should be InvalidInput')
-        self.assertEqual(self.func(1, "A", 1), 'InvalidInput', '8, 8, 9.2 Should be InvalidInput')
-        self.assertEqual(self.func(1, 1, "A"), 'InvalidInput', '3.5, 4.5, 6 Should be InvalidInput')
+        self.__assert_equals_test_case([("A", 1, 1)], 'InvalidInput')
 
 
 class TestTrianglesFixed(TestTriangles):
