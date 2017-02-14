@@ -49,7 +49,7 @@ def classifyTriangle(a, b, c):
 
     # Triangle inequality
     # The sum of the lengths of any two sides must be greater than or equal to the length of the remaining side.
-    if (a >= b + c) or (b >= a + c) or (c >= a + b):
+    if (a >= b + c) and (b >= a + c) and (c >= a + b):
         return 'NotATriangle'
 
     if a == b and a == c and b == c:
