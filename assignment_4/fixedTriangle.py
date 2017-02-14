@@ -32,6 +32,13 @@ def classifyTriangle(a, b, c):
         There are issues with Right Iso.
         There are no angle conversions so precision is not needed.
     """
+
+    # Attempt to convert parameters to floats
+    try:
+        a, b, c, = float(a), float(b), float(c)
+    except ValueError:
+        return 'InvalidInput'
+
     # require that the input values be > 0 and <= 200
     # fixed syntax
     if a > 200 or b > 200 or c > 200:
@@ -41,10 +48,6 @@ def classifyTriangle(a, b, c):
     if a <= 0 or b <= 0 or c <= 0:
         return 'InvalidInput'
 
-    # verify that all 3 inputs are integers  
-    # Python's "isinstance(object,type) returns True if the object is of the specified type
-    if not (isinstance(a, int) and isinstance(b, int) and isinstance(c, int)):
-        return 'InvalidInput'
 
     # This information was not in the requirements spec but 
     # is important for correctness
