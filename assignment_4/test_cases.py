@@ -4,26 +4,30 @@ import unittest
 
 class TestTriangles(unittest.TestCase):
     """ Test Cases that can be run on both buggyTriangle and fixedTriangle
+
+    Requirements Document:
     1.Request Input:
-    The program will request 3 numbers, which we call A, B, and C, which are the sides of a possible triangle
+        1. The program will request 3 numbers, which we call A, B, and C, which are the sides of a possible triangle
     2.Verify the Input:
-    The 3 inputs must be real numbers, greater than 0 and not too big.
-    Otherwise, output error message and stop
+        1. The 3 inputs must be real numbers, greater than 0 and not too big.
+        2. Otherwise, output error message and stop
     3.Verify that the sides form a legal triangle
-    If A + B >= C or B + C >= A or C + A >= B then a legal triangle
-    Otherwise, output error message and stop
+        1. If A + B >= C or B + C >= A or C + A >= B then a legal triangle
+        2. Otherwise, output error message and stop
     4.Determine if the triangle is a right triangle
-    If A^2 + B^2 = C^2 or B^2 + C^2 = A^2 or C^2 + A^2 = B^2, then a right triangle.
-    Due to the issues of numerical precision, = in this case means within 1%
+        1. If A^2 + B^2 = C^2 or B^2 + C^2 = A^2 or C^2 + A^2 = B^2, then a right triangle.
+        2. Due to the issues of numerical precision, = in this case means within 1%
     5.Determine if the triangle is equilateral, isosceles, or scalene
-    If the sides are all equal, then the triangle is “Equilateral”
-    Else if two side are equal, but not three, then the triangle is “Isosceles”
+        1. If the sides are all equal, then the triangle is “Equilateral”
+        2. Else if two side are equal, but not three, then the triangle is “Isosceles”
     6. Display type of triangle
-    If it is a right and Isosceles – Print “Right Isosceles Triangle”
-    If it is a right and Scalene – Print “Right Scalene Triangle”
-    If is a right and Equilateral – Print “Equilateral Triangle”
-    If it is not a right and Isosceles – Print “Isosceles Triangle”
-"""
+        1. If it is a right and Isosceles – Print “Right Isosceles Triangle”
+        2. If it is a right and Scalene – Print “Right Scalene Triangle”
+        3. If is a right and Equilateral – Print “Equilateral Triangle”
+        4. If it is not a right and Isosceles – Print “Isosceles Triangle”
+    7. Return
+
+    """
 
     def setUp(self):
         self.func = None
