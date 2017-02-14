@@ -113,24 +113,25 @@ class TestTriangles(unittest.TestCase):
         self.__assert_equals_test_case("isosceles_triangles_bug", 'Right Isosceles Triangle')
 
     def test_case_04_legal_triangle(self):
-        """ Verify that the sides form a legal triangle R3.1"""
+        """ Verify that the sides form a legal triangle (Triangle Inequality) R3.1"""
         for a, b, c in permutations((4, 4, 8)):
             try:
                 self.assertNotEqual(self.func(a, b, c), 'NotATriangle')
             except AssertionError as e:
                 raise AssertionError('For triangle with parameters {0}, {1}'.format((a, b, c), e.message))
-
         for a, b, c in permutations((4, 5, 8)):
             try:
                 self.assertNotEqual(self.func(a, b, c), 'NotATriangle')
             except AssertionError as e:
                 raise AssertionError('For triangle with parameters {0}, {1}'.format((a, b, c), e.message))
 
-    #def test_case_05(self):
-    #    """ Check that the sum of any 2 sides is greater than the 3rd side, if it fails = 'NotATriangle' R3.2"""
-    #    self.assertEqual(self.func(11, 6, 4), 'NotATriangle', '11, 6, 4 Should be NotATriangle')
-    #    self.assertEqual(self.func(6, 11, 4), 'NotATriangle', '6, 11, 4 Should be NotATriangle')
-    #    self.assertEqual(self.func(6, 4, 11), 'NotATriangle', '6, 4, 11 Should be NotATriangle')
+    def test_case_05_not_legal_triangle(self):
+        """ Verify that the sides don't form a legal triangle (Triangle Inequality) R3.2"""
+        for a, b, c in permutations((4, 6, 11)):
+            try:
+                self.assertEqual(self.func(a, b, c), 'NotATriangle')
+            except AssertionError as e:
+                raise AssertionError('For triangle with parameters {0}, {1}'.format((a, b, c), e.message))
 
     #def test_case_06(self):
     #    """ Check Values, if a or b or c > 200 should = 'InvalidInput' R2.2"""
