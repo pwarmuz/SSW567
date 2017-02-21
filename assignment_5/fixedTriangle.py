@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Created on Thu Jan 14 13:44:00 2016
 Original buggyTriangle created by:
