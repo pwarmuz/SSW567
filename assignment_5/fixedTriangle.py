@@ -22,10 +22,10 @@ def classifyTriangle(a, b, c, precision=2):
     
     return:
         If all three sides are equal, return 'Equilateral'
-        If exactly one pair of sides are equal, return 'Isoceles'
+        If exactly one pair of sides are equal, return 'Isosceles'
         If no pair of  sides are equal, return 'Scalene'
         If not a valid triangle, then return 'NotATriangle'
-        If the sum of any two sides equals the squate of the third side, then return 'Right'
+        If the sum of any two sides equals the square of the third side, then return 'Right'
       
     """
     # Attempt to convert input variables to floats
