@@ -1,4 +1,5 @@
 # coding=utf-8
+""" Test cases for fixedTriangle.py """
 import unittest
 from math import sqrt
 from itertools import permutations
